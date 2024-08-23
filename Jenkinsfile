@@ -1,14 +1,18 @@
 pipeline {
     agent any
-    stages {
-        stage('Build and Push Docker Image to DOckerhub') {
-            steps {
-                // Grant executable permissions to the deploy script
-                sh 'chmod +x deploy.sh'
 
-                // Execute deploy script
-                sh './deploy.sh'               
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
             }
         }
+        stage('Checkout Code') {
+            steps {
+                git branch: 'master',
+                credentialsId: 'Github',
+                url: 'https://github.com/yogamithra06/Capstone-CI-CD.git'
+            }
+        }     
     }
 }
