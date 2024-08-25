@@ -6,6 +6,10 @@ pipeline {
                 credentialsId: 'Github-Token',
                 url: 'https://github.com/yogamithra06/Capstone-CI-CD.git'
             }
-        }     
-    }
+        }
+        stage('Build Docker Image') {
+            steps {
+               sh 'docker build . -t react-app'                
+            }
+        }                
 }
