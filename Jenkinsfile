@@ -9,7 +9,9 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-               sh 'docker build . -t react-app'                
+            script {
+            sh 'docker build . -t react-app'
+        }                                
             }
-        }                
+        }
 }
