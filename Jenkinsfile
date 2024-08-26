@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    EVENT_STORE = [ 'master': "pull_request", 'dev': "push" ]
+    EVENT_STORE = ['master': "pull_request", 'dev': "push"]
     GITHUB_TOKEN = credentials('github-token')
   }    
     stages {
