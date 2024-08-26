@@ -1,11 +1,8 @@
 pipeline {
-    agent any
-    env {
-    EVENT_STORE = [
-      'master': 'pull_request',
-      'dev': 'push',
-    ]
-   }    
+  agent any
+  environment {
+    EVENT_STORE = [ 'master': 'pull_request', 'dev': 'push' ]
+  }    
     stages {
         stage('Checkout Code') {
             steps {
@@ -36,8 +33,8 @@ pipeline {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
                             sh 'docker tag react-app dockeruser06/dev/react-app:dev'
                             sh 'docker push dockeruser06/dev/react-app:dev'
-                        }
-                       }
+                            }
+                        }    
                     }
                 }
             }
