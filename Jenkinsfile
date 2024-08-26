@@ -17,13 +17,13 @@ pipeline {
             steps {
                 script {   
                     def GIT_BRANCH = env.GIT_BRANCH       
-                    if [[ $GIT_BRANCH == "master" ]]; then
+                    if (GIT_BRANCH == "master"); then
                         withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
                             sh 'docker tag react-app dockeruser06/prod/react-app:prod'
                             sh 'docker push dockeruser06/prod/react-app:prod'
                         } 
-                    elif [[ $GIT_BRANCH == "dev" ]]; then
+                    elif (GIT_BRANCH == "dev"); then
                         withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
                             sh 'docker tag react-app dockeruser06/dev/react-app:dev'
