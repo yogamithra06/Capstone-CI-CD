@@ -2,7 +2,11 @@ pipeline {
     agent any
     triggers {
         githubPush()
-        githubPullRequests()               
+        githubPullRequests(
+        [GitHubPREvent.CLOSE],
+        null,
+        null
+    )            
         }
     stages {
         stage('Checkout Code') {
