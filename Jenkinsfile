@@ -1,12 +1,8 @@
 pipeline {
     agent any
-    triggers 
-    {
-        expression 
-        {
-            return env.BRANCH_NAME == 'dev' && env.GITHUB_EVENT == 'push' || (env.BRANCH_NAME == 'master' && env.GITHUB_EVENT == 'merge')
-        }
-    }
+    triggers {
+    expression env.BRANCH_NAME == 'dev' && env.GITHUB_EVENT == 'push' || env.BRANCH_NAME == 'master' && env.GITHUB_EVENT == 'merge'
+}
     stages 
     {
         stage('Checkout Code') {
