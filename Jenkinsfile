@@ -1,11 +1,14 @@
 pipeline {
     agent any
-    triggers {
-        expression {
+    triggers 
+    {
+        expression 
+        {
             return env.BRANCH_NAME == 'dev' && env.GITHUB_EVENT == 'push' || (env.BRANCH_NAME == 'master' && env.GITHUB_EVENT == 'merge')
         }
     }
-    stages {
+    stages 
+    {
         stage('Checkout Code') {
             steps {
                 git branch: 'master', credentialsId: 'Github-Token', url: 'https://github.com/yogamithra06/Capstone-CI-CD.git'
