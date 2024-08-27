@@ -1,13 +1,13 @@
 pipeline {
     agent any
-triggers {
-    script {
-        if (env.BRANCH_NAME == 'dev' && env.GITHUB_EVENT == 'push' || (env.BRANCH_NAME == 'master' && env.GITHUB_EVENT == 'merge')) {
-            return true
+    triggers {
+    githubPush()
+    githubPullRequest {
+        cron('H/2 * * * *')
+        triggerOnPush true
+        triggerOnMerge true
         }
-        return false
-    }
-}
+    }    
     stages {
         stage('Checkout Code') {
             steps {
