@@ -1,5 +1,9 @@
 pipeline {
   agent any
+    environment {
+        GIT_BRANCH = "${env.GITHUB_BRANCH}"
+        GIT_EVENT = "${env.GITHUB_EVENT}"
+    }    
   stages {
     stage('Checkout Code') {
       steps {
