@@ -1,7 +1,7 @@
 pipeline {
     agent any
     triggers {
-        gitPush()
+        githubPush()
         githubPullRequests(events: ['close']) // Trigger only on merge events               
         }
     stages {
