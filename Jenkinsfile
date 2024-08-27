@@ -5,9 +5,6 @@ pipeline {
       steps {
         git branch: 'master', credentialsId: 'Github-Token', url: 'https://github.com/yogamithra06/Capstone-CI-CD.git'
       }
-      when {
-        branch 'master'
-      }
     }
     stage('Build Docker Image') {
       steps {
