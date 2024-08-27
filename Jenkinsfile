@@ -16,16 +16,11 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image') {
-           when {
-            expression {
-            env.BRANCH_NAME == 'dev' && env.GITHUB_EVENT == 'push' || env.BRANCH_NAME == 'master' && env.GITHUB_EVENT == 'merge'
-                }
-            }             
+        stage('Push Docker Image') {             
             steps {
                 script {
                     def branchName = env.BRANCH_NAME
-                    if (branchName == "master") {
+                    if (branchName == 'master' && env.GITHUB_EVENT == 'merge') {
                         withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
                             sh 'docker tag react-app dockeruser06/prod/react-app:prod'
