@@ -17,7 +17,7 @@ pipeline {
                withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) 
                 {
                  sh 'docker login -u dockeruser06 -p $DockerhubPAT'
-                 sh 'docker tag react-app dockeruser06/dev/react-app:latest'
+                 sh 'docker tag react-app dockeruser06/dev:react-app:latest'
                  sh 'docker push dockeruser06/dev:react-app:latest'
                 }
             }
