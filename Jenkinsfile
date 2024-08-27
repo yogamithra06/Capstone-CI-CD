@@ -1,11 +1,13 @@
 pipeline {
     agent any
-    triggers {
-        githubPush()
-        githubPullRequests(
-        githubPullRequestsSpec: [GitHubPREvent.CLOSE]
-    )            
+triggers {
+    script {
+        if (env.BRANCH_NAME == 'dev' && env.GITHUB_EVENT == 'push' || (env.BRANCH_NAME == 'master' && env.GITHUB_EVENT == 'merge')) {
+            return true
         }
+        return false
+    }
+}
     stages {
         stage('Checkout Code') {
             steps {
