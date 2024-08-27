@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git url: 'https://github.com/yogamithra06/Capstone-CI-CD.git', branch: 'dev'
+               git branch: 'dev', credentialsId: 'Github-Token', url: 'https://github.com/yogamithra06/Capstone-CI-CD.git'
             }
         }
         stage('Build Docker Image') {
