@@ -1,24 +1,43 @@
 pipeline {
     agent any
-
-    stages {
+    triggers 
+    {
+        expression 
+        {
+            return env.BRANCH_NAME == 'dev' && env.GITHUB_EVENT == 'push' || (env.BRANCH_NAME == 'master' && env.GITHUB_EVENT == 'merge')
+        }
+    }
+    stages 
+    {
         stage('Checkout Code') {
             steps {
-               git branch: 'dev', credentialsId: 'Github-Token', url: 'https://github.com/yogamithra06/Capstone-CI-CD.git'
+                git branch: 'master', credentialsId: 'Github-Token', url: 'https://github.com/yogamithra06/Capstone-CI-CD.git'
             }
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build . -t react-app'
+                script {
+                    sh 'docker build . -t react-app'
+                }
             }
         }
-        stage('Push to Docker Hub') {
+        stage('Push Docker Image') {
             steps {
-               withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) 
-                {
-                 sh 'docker login -u dockeruser06 -p $DockerhubPAT'
-                 sh 'docker tag react-app dockeruser06/dev/react-app:latest'
-                 sh 'docker push dockeruser06/dev:latest'
+                script {
+                    def branchName = env.BRANCH_NAME
+                    if (branchName == "master") {
+                        withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
+                            sh 'docker login -u dockeruser06 -p $DockerhubPAT'
+                            sh 'docker tag react-app dockeruser06/prod/react-app:prod'
+                            sh 'docker push dockeruser06/prod/react-app:prod'
+                        }
+                    } else if (branchName == "dev") {
+                        withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
+                            sh 'docker login -u dockeruser06 -p $DockerhubPAT'
+                            sh 'docker tag react-app dockeruser06/dev/react-app:dev'
+                            sh 'docker push dockeruser06/dev/react-app:dev'
+                        }
+                    }
                 }
             }
         }
