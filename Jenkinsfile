@@ -3,9 +3,9 @@ pipeline {
     triggers {
         githubPush()
         githubPullRequests(
-        [GitHubPREvent.CLOSE],
-        null,
-        null
+        events: [GitHubPREvent.CLOSE],
+        labels: null,
+        status: null
     )            
         }
     stages {
