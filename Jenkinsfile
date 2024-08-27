@@ -2,7 +2,9 @@ pipeline {
     agent any
     triggers {
         githubPush()
-        githubPullRequests(events: ['close']) // Trigger only on merge events               
+        githubPullRequests{ 
+            events = [GitHubPREvent.CLOSE]
+        } // Trigger only on merge events               
         }
     stages {
         stage('Checkout Code') {
