@@ -17,7 +17,7 @@ pipeline {
       steps {
         script {
           def GIT_BRANCH = env.GIT_BRANCH
-          def GIT_EVENT = githubWebhookEvent
+          def GIT_EVENT = env.GIT_EVENT
           def branchName = GIT_BRANCH.split('/')[-1]
           if (branchName == "master" && GIT_EVENT == "pull_request") {
             withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
