@@ -1,13 +1,11 @@
 pipeline {
     agent any
-    triggers {
-    githubPush()
     githubPullRequest {
-        cron('H/2 * * * *')
-        triggerOnPush true
-        triggerOnMerge true
-        }
-    }    
+    cron('H/5 * * * *')
+    }
+    triggers{
+        githubpush()
+    }   
     stages {
         stage('Checkout Code') {
             steps {
