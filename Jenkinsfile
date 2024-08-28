@@ -23,8 +23,8 @@ pipeline {
                     def dockerImageTag = branchName == "master" ? "prod" : "dev"
                     withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                      sh "docker login -u dockeruser06 -p $DockerhubPAT"
-                     sh "docker tag react-app dockeruser06/${dockerImageTag}/react-app:${dockerImageTag}"
-                     sh "docker push dockeruser06/${dockerImageTag}/react-app:${dockerImageTag}"
+                     sh "docker tag react-app dockeruser06/${dockerImageTag}:${dockerImageTag}"
+                     sh "docker push dockeruser06/${dockerImageTag}:${dockerImageTag}"
                     }
                 }
             }
