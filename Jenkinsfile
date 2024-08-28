@@ -1,10 +1,8 @@
 pipeline {
-    agent any  
-    import com.github.kostyasha.github.integration.branch.events.GitHubBranchEvent
+    agent any
     triggers {
         githubBranches(
-        events: [com.github.kostyasha.github.integration.branch.events.GitHubBranchEvent.PUSH, 
-                 com.github.kostyasha.github.integration.branch.events.GitHubBranchEvent.MERGE],
+        events: ['PUSH','MERGE'],
         spec: 'origin/master,origin/dev'
     )
 }
@@ -31,7 +29,7 @@ pipeline {
                             sh 'docker tag react-app dockeruser06/prod/react-app:prod'
                             sh 'docker push dockeruser06/prod/react-app:prod'
                         }
-                    } else if (branchName == "dev") {
+                    } else (branchName == "dev") {
                         withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
                             sh 'docker tag react-app dockeruser06/dev/react-app:dev'
