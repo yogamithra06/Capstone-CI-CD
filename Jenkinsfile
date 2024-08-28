@@ -1,13 +1,5 @@
 pipeline {
-    agent any
-        triggers {
-        githubPush(
-            branches: ['dev']
-        )
-        githubPullRequests(
-            branches: ['master']
-        )
-    }   
+    agent any  
     stages {
         stage('Checkout Code') {
             steps {
@@ -25,13 +17,13 @@ pipeline {
             steps {
                 script {
                     def branchName = env.BRANCH_NAME
-                    if (branchName == 'master' && env.GITHUB_EVENT == 'merge') {
+                    if (branchName == "master" && env.GITHUB_EVENT == "merge") {
                         withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
                             sh 'docker tag react-app dockeruser06/prod/react-app:prod'
                             sh 'docker push dockeruser06/prod/react-app:prod'
                         }
-                    } else if (branchName == "dev") {
+                    } else if (branchName == "dev" && env.GITHUB_EVENT == "push") {
                         withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
                             sh 'docker tag react-app dockeruser06/dev/react-app:dev'
