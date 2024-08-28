@@ -3,9 +3,8 @@ pipeline {
     triggers{
         githubPush()
         githubPullRequests(
-            repoOwner: 'yogamithra06',
-            repoName: 'Capstone-CI-CD',
-            credentialsId: 'Github-Token'
+            spec: 'master/pr/**',
+            events: ['opened', 'synchronize', 'closed']
         )
     }
     stages {
