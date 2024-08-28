@@ -19,8 +19,7 @@ pipeline {
         stage('Push Docker Image') {          
             steps {
                 script {
-                    def branchName = env.GITHUB_REF.split('/')[-1]
-                    echo "Branch name1: ${branchName}"
+                    def branchName = githubBranch()
                     if (branchName == "master") {
                         withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
@@ -28,7 +27,6 @@ pipeline {
                             sh 'docker push dockeruser06/prod/react-app:prod'
                         }
                     } else if (branchName == "dev") {
-                        echo "Branch name2: ${branchName}"
                         withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
                             sh 'docker tag react-app dockeruser06/dev/react-app:dev'
