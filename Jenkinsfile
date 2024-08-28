@@ -1,8 +1,10 @@
 pipeline {
     agent any  
+    import com.github.kostyasha.github.integration.branch.events.GitHubBranchEvent
     triggers {
         githubBranches(
-        events: ['PUSH', 'MERGE'],
+        events: [com.github.kostyasha.github.integration.branch.events.GitHubBranchEvent.PUSH, 
+                 com.github.kostyasha.github.integration.branch.events.GitHubBranchEvent.MERGE],
         spec: 'origin/master,origin/dev'
     )
 }
