@@ -3,7 +3,7 @@ pipeline {
     triggers {
        githubPush()
        githubPullRequests(
-        branches: 'master'
+        events: ['PULL_REQUEST_CLOSED']
       )
     }   
     stages {
