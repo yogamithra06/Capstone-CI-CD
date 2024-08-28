@@ -1,10 +1,11 @@
 pipeline {
     agent any
     triggers {
-        githubBranches(
-        events: ['PUSH','MERGE'],
-        spec: 'origin/master,origin/dev'
-    )
+        github(
+            events: ['PUSH', 'MERGE'],
+            spec: 'origin/dev && github.event.push || origin/master && github.event.merge'
+        )
+    }
 }
     stages {
         stage('Checkout Code') {
