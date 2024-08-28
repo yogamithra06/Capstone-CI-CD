@@ -2,7 +2,7 @@ pipeline {
     agent any
     triggers {
        githubPush()
-       githubPullRequests(
+       githubPullRequest(
         events: ['PULL_REQUEST_CLOSED']
       )
     }   
