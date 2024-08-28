@@ -19,7 +19,7 @@ pipeline {
         stage('Push Docker Image') {          
             steps {
                 script {
-                    def branchName = env.GITHUB_REF.split('/')[-1]
+                    def branchName = env.GIT_BRANCH.split('/')[-1]
                     if (branchName == "master") {
                         withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
