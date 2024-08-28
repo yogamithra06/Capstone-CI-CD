@@ -7,7 +7,6 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'master', credentialsId: 'Github-Token', url: 'https://github.com/yogamithra06/Capstone-CI-CD.git'
-                echo "Branch name1: ${branch}"
             }
         }
         stage('Build Docker Image') {
@@ -21,7 +20,7 @@ pipeline {
             steps {
                 script {
                     def branchName = env.GITHUB_REF.split('/')[-1]
-                    echo "Branch name2: ${branchName}"
+                    echo "Branch name1: ${branchName}"
                     if (branchName == "master") {
                         withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
@@ -29,7 +28,7 @@ pipeline {
                             sh 'docker push dockeruser06/prod/react-app:prod'
                         }
                     } else if (branchName == "dev") {
-                        echo "Branch name3: ${branchName}"
+                        echo "Branch name2: ${branchName}"
                         withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
                             sh 'docker tag react-app dockeruser06/dev/react-app:dev'
