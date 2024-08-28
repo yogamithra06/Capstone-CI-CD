@@ -6,7 +6,6 @@ pipeline {
             spec: 'origin/dev && github.event.push || origin/master && github.event.merge'
         )
     }
-}
     stages {
         stage('Checkout Code') {
             steps {
