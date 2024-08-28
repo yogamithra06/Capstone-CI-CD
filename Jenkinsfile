@@ -3,8 +3,8 @@ pipeline {
     triggers{
         githubPush()
         githubPullRequests(
-            spec: 'master/pr/**',
-            events: ['opened', 'synchronize', 'closed']
+            spec: 'origin/pr/master/**',
+            events: [GitHubPRTriggerEvent.OPENED, GitHubPRTriggerEvent.SYNCHRONIZE, GitHubPRTriggerEvent.CLOSED]
         )
     }
     stages {
