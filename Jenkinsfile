@@ -2,7 +2,11 @@ pipeline {
     agent any  
     triggers{
         githubPush()
-        githubPullRequests()
+        githubPullRequests(
+            repoOwner: 'yogamithra06',
+            repoName: 'Capstone-CI-CD',
+            credentialsId: 'Github-Token'
+        )
     }
     stages {
         stage('Checkout Code') {
