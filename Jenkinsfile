@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    trigger{
+    triggers{
         githubPush(
             events: ['PUSH', 'MERGE'],
             spec: 'origin/dev && github.event.push || origin/master && github.event.merge')
