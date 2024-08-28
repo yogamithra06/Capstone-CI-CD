@@ -2,8 +2,8 @@ pipeline {
     agent any
     triggers {
        githubPush()
-      githubPullRequests(
-        spec: 'origin/master'
+       githubPullRequests(
+        spec: 'master'
       )
     }   
     stages {
