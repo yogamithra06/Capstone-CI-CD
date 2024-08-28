@@ -7,6 +7,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: env.GIT_BRANCH, credentialsId: 'Github-Token', url: 'https://github.com/yogamithra06/Capstone-CI-CD.git'
+                echo "Checked out branch: ${env.GIT_BRANCH}"
             }
         }
         stage('Build Docker Image') {
