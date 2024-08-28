@@ -3,7 +3,7 @@ pipeline {
     triggers {
         githubBranches(
         events: ['PUSH', 'MERGE'],
-        filter: 'origin/master,origin/dev'
+        spec: 'origin/master,origin/dev'
     )
 }
     stages {
