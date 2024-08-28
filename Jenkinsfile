@@ -1,11 +1,5 @@
 pipeline {
     agent any
-    triggers {
-        githubBranches(
-        events: ['PUSH','MERGE'],
-        spec: 'origin/master,origin/dev'
-    )
-}
     stages {
         stage('Checkout Code') {
             steps {
@@ -18,8 +12,15 @@ pipeline {
                     sh 'docker build . -t react-app'
                 }
             }
-        }
-        stage('Push Docker Image') {             
+        }      
+        stage('Push Docker Image') {
+           when {
+            expression {
+                    def githubEvent = env.GITHUB_EVENT
+                    def branchName = env.BRANCH_NAME
+                    return (branchName == 'origin/dev' && githubEvent == 'push') || (branchName == 'origin/master' && githubEvent == 'merge')
+                }
+            }            
             steps {
                 script {
                     def branchName = env.BRANCH_NAME
@@ -29,7 +30,7 @@ pipeline {
                             sh 'docker tag react-app dockeruser06/prod/react-app:prod'
                             sh 'docker push dockeruser06/prod/react-app:prod'
                         }
-                    } else (branchName == "dev") {
+                    } else if (branchName == "dev") {
                         withCredentials([string(credentialsId: 'Dockerhub', variable: 'DockerhubPAT')]) {
                             sh 'docker login -u dockeruser06 -p $DockerhubPAT'
                             sh 'docker tag react-app dockeruser06/dev/react-app:dev'
