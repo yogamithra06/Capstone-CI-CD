@@ -2,7 +2,8 @@ pipeline {
     agent any  
     triggers {
         githubBranches(
-        branches: ['master', 'dev']
+        events: ['PUSH', 'MERGE'],
+        filter: 'origin/master,origin/dev'
     )
 }
     stages {
