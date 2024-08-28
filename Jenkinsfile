@@ -1,10 +1,12 @@
 pipeline {
     agent any
-    triggers {
-       githubPush()
-       githubPullRequests(
-        events: ['PULL_REQUEST_CLOSED']
-    )
+        triggers {
+        githubPush(
+            branches: ['dev']
+        )
+        githubPullRequests(
+            branches: ['master']
+        )
     }   
     stages {
         stage('Checkout Code') {
