@@ -2,7 +2,10 @@ pipeline {
     agent any  
     triggers{
         githubPush()
-        githubPullRequests()
+        githubPullRequests(
+            spec: 'master/pr/**',
+            events: ['opened', 'synchronize', 'closed']
+        )
     }
     stages {
         stage('Checkout Code') {
