@@ -4,7 +4,7 @@ pipeline {
        githubPush()
        githubPullRequest(
         events: ['PULL_REQUEST_CLOSED']
-      )
+    )
     }   
     stages {
         stage('Checkout Code') {
