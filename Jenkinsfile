@@ -1,10 +1,7 @@
 pipeline {
     agent any  
     triggers {
-        githubBranches(['master', 'dev'], [
-        buildOnChange: true,
-        buildOnPullRequest: true
-    ])
+        githubBranches(['master', 'dev'], true, true)
 }
     stages {
         stage('Checkout Code') {
