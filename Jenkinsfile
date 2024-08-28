@@ -1,9 +1,11 @@
 pipeline {
     agent any
     triggers {
-        githubPush(branch: 'dev')
-        gitPullRequest(spec: 'origin/master')
-     }   
+       githubPush()
+      githubPullRequests(
+        spec: 'origin/master'
+      )
+    }   
     stages {
         stage('Checkout Code') {
             steps {
