@@ -1,2 +1,2 @@
 
-Try pull request for merge with master branch
+Try pull request for merge with master branch.
