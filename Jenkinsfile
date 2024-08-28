@@ -1,8 +1,9 @@
 pipeline {
-    agent any
+    agent any  
     triggers{
         githubPush()
-    }   
+        githubPullRequests()
+    }
     stages {
         stage('Checkout Code') {
             steps {
@@ -16,12 +17,7 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image') {
-           when {
-            expression {
-            env.BRANCH_NAME == 'dev' && env.GITHUB_EVENT == 'push' || env.BRANCH_NAME == 'master' && env.GITHUB_EVENT == 'merge'
-                }
-            }             
+        stage('Push Docker Image') {             
             steps {
                 script {
                     def branchName = env.BRANCH_NAME
