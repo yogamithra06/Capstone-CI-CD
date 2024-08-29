@@ -34,8 +34,8 @@ pipeline {
                 script{
                     sh "docker stop react-image || true"
                     sh "docker rm react-image || true"
-                    def dockerImageTag = branchName == "master" ? "prod" : "dev"
-                    def dockerCmd = "docker run -d --name react-image -p 80:80 -d dockeruser06/${dockerImageTag}:${dockerImageTag}"                
+                    def branchName = env.GIT_BRANCH
+                    def dockerCmd = "docker run --name react-image -p 80:80 -d dockeruser06/${branchName}:${branchName}"                
                     sshagent(['Deployment-server']) {                    
                       sh "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o \"BatchMode=yes\" ec2-user@3.83.43.244 ${dockerCmd}"
                     }
