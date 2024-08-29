@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Deploy to EC2') {
             steps {
-                sshagent(['ec2-ssh-key']) {
+                sshagent(['Deployment-server']) {
                     sh """
                     ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@3.83.43.244 << EOF
                     docker login -u dockeruser06 -p $DockerhubPAT
