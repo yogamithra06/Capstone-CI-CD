@@ -17,3 +17,6 @@ As part of build step – a jenkins CI/CD pipeline is created with the below sta
 4.	Push the image to docker hub
 5.	Deploy the application to EC2 server
 
+Refer to the Capstone_Project_Design Document.docx
+This is the detailed Design document for this capstone project.
+It contains all the steps and screenshots required for each and every stage of the project.
